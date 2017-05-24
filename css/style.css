@@ -1,0 +1,58 @@
+body, html{
+    height: 100%;
+    width: 100%;
+    font-family: "Syncopate", sans-serif;
+    padding: 0;
+    margin: 0;
+
+}
+
+canvas {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.main{
+    position: absolute;
+    margin: auto;
+    height: 256px;
+    width: 675px;
+    top: 0; bottom: 0; left: 0; right: 0;
+    text-align: center;
+    background-color: rgba(251,241,199,.75);
+    padding-top: 8px;
+}
+
+h1, h3, p{
+    color: #282828;
+}
+
+h1{
+    font-family: "Stoke";
+    font-size: 3.5em;
+    padding-bottom: 0px;
+    margin: 0;
+}
+
+h3{
+    font-size: 1.5em;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+p{
+    font-weight: bolder;
+}
+
+
+.fa-ul{
+    font-size: 35px;
+    padding-right: 70px;
+}
+
+a {
+    text-decoration: none;
+    color: #d65d0e;
+}
