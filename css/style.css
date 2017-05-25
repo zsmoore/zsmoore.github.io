@@ -16,12 +16,12 @@ canvas {
 .main{
     position: absolute;
     margin: auto;
-    height: 23.7%;
-    width: 30%;
-    top: -35%; bottom: 0; left: 0; right: 0;
+    top: 15%;
+    left: 0%;
+    right: 0%;
     text-align: center;
-    background-color: rgba(251,241,199,.75);
     padding-top: 1vh;
+    background-color: rgba(251,241,199,.75);
 }
 
 h1, h3, p{
@@ -47,7 +47,8 @@ p{
 
 
 .fa-ul{
-    padding-right: 8%;
+    display: table;
+    margin: 0 auto;
     font-size: 250%
 }
 
