@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lange = "en">
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device.width, height=device.height, target-densitydpi=device-dpi" charset = "utf-8"/>
+        <title> Step 2 </title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--BootStrap-->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--Font Awesome-->
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">
+        <!--Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Stoke' rel='stylesheet'> 
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+
+        <script>
+            step2 = false;
+            function handleClick() {
+                var a = $("#a").val();
+                var b = $("#b").val();
+                var c = $("#c").val();
+                var d = $("#d").val();
+                var e = $("#e").val();
+                var f = $("#f").val();
+
+                vals = [];
+                vals.push(a.toLowerCase());
+                vals.push(b.toLowerCase());
+                vals.push(c.toLowerCase());
+                vals.push(d.toLowerCase());
+                vals.push(e.toLowerCase());
+                vals.push(f.toLowerCase());
+                if (step2) {
+                    if (vals.indexOf("climb") >= 0) {
+                        alert("Good job");
+                        window.open("congrats2.html", "_self");
+                    } else {
+                        alert("Not quite");
+                    }
+                }
+
+                if (!step2) {
+                    if (vals.indexOf("cardinal") >= 0 &&
+                        vals.indexOf("eastern bluebird") >= 0 &&
+                        vals.indexOf("northern cardinal") >= 0 &&
+                        vals.indexOf("rhode island red") >= 0 &&
+                        vals.indexOf("common loon") >= 0 &&
+                        vals.indexOf("northern mockingbird") >= 0) {
+                        alert("Good Job you got it!");
+                        step2 = true;
+                        alert("Next step is to take every first letter of the second word\nof each bird that has more than one word and enter a word\nthat uses all of those letters into any text box");
+                    } else {
+                        count = 0;
+                        if (vals.indexOf("cardinal") >= 0) count += 1;
+                        if (vals.indexOf("eastern bluebird") >= 0)  count += 1;
+                        if (vals.indexOf("northern cardinal") >= 0) count += 1;
+                        if (vals.indexOf("rhode island red") >= 0) count += 1;
+                        if (vals.indexOf("common loon") >= 0) count += 1;
+                        if (vals.indexOf("northern mockingbird") >= 0) count += 1;
+    
+                        alert("You have " + count + " correct");
+                    }
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script type="text/javascript" src="js/particles.js"></script>
+        <div class="container main">
+            <span style="display: inline;">
+                <h1> Location Trivia </h1>
+                <h3> In this step you will be giving facts about states you have lived in (hopefully I got them all) </h3>
+                <p> First step is to enter each state bird into the text boxes and then submit </p>
+                <button type="button" class="btn btn-warning" onClick="handleClick();">Submit</button>
+                <input  type = "text" class="form-control" id="a">
+                <input  type = "text" class="form-control" id="b">
+                <input  type = "text" class="form-control" id="c">
+                <input  type = "text" class="form-control" id="d">
+                <input  type = "text" class="form-control" id="e">
+                <input  type = "text" class="form-control" id="f">
+            </span>
+        </div>
+    </body>
+</html>

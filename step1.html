@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lange = "en">
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device.width, height=device.height, target-densitydpi=device-dpi" charset = "utf-8"/>
+        <title> Step 1 </title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--BootStrap-->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--Font Awesome-->
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">
+        <!--Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Stoke' rel='stylesheet'> 
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+
+        <script>
+            function handleClick() {
+                bet = $("#bet").val();
+                currScore -= 9 * bet;
+                masterMachine.spin();
+                checkCount = 0;
+                check = true;
+                if (currScore >= 300) {
+                    window.open("congrats1.html", "_self");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script type="text/javascript" src="js/particles.js"></script>
+        <div class="container main">
+            <span style="display: inline;">
+                <h1> 9 Line 3 Slot Payout Bet in Text Box</h1>
+                <h3> Get to 300 to move on, refresh to restart </h3>
+                <p> Cherry : 35 </br> Diamond : 40 </br> Grape : 20 </br> Orange : 25 </br> Seven : 30 </br> "Wild" : 50 </p>
+                <script type="text/javascript" src="js/slot_machine.js"></script>
+                <button type="button" class="btn btn-warning" onClick="handleClick();">Spin!</button>
+                <input  type = "number" class="form-control" value="1" id="bet">
+            </span>
+        </div>
+    </body>
+</html>

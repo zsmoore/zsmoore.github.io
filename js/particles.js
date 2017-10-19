@@ -1,3 +1,4 @@
+(function() {
 //Set up canvas vars and colors
 var canvas = document.querySelector("canvas");
 canvas.width = document.body.offsetWidth;
@@ -182,3 +183,5 @@ window.addEventListener('resize', resize, true);
 draw();
 //Loop nonstop
 loop();
+
+})();
