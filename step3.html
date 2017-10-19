@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lange = "en">
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device.width, height=device.height, target-densitydpi=device-dpi" charset = "utf-8"/>
+        <title> Step 3 </title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--BootStrap-->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--Font Awesome-->
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">
+        <!--Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Stoke' rel='stylesheet'> 
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+        <script>
+            currCorrect = 0;
+            function handleClick() {
+                var dis = $("#disney").val().toLowerCase().trim();
+                if (dis === "disney" || dis === "mgmt" || dis === "sci-fi dine-in theater") {
+                    currCorrect += 1;
+                    $("#disney").prop("disabled", true);
+                }
+
+                var oh = $("#ohio").val().toLowerCase().trim();
+                if (oh === "ohio" || oh === "grandma" || oh === "strongsville") {
+                    currCorrect += 1;
+                    $("#ohio").prop("disabled", true);
+                }
+                
+                var univ = $("#universal").val().toLowerCase().trim();
+                if (univ === "universal" || univ === "dr. seuss" || univ === "islands of adventure") {
+                    currCorrect += 1;
+                    $("#universal").prop("disabled", true);
+                }
+
+                var buff = $("#buffalo").val().toLowerCase().trim();
+                if (buff === "buffalo" || buff === "orchard park" || buff === "marilyn drive") {
+                    currCorrect += 1;
+                    $("#buffalo").prop("disabled", true);
+                }
+
+                var ep = $("#epcot").val().toLowerCase().trim();
+                if (ep === "epcot" || ep === "finding nemo" || ep === "world showcase") {
+                    currCorrect += 1;
+                    $("#epcot").prop("disabled", true);
+                }
+
+                var link = $("#linkedin").val().toLowerCase().trim();
+                if (link === "linkedin" || link === "california" || link === "sunnyvale") {
+                    currCorrect += 1;
+                    $("#linkedin").prop("disabled", true);
+                }
+                
+                console.log(currCorrect);
+                if (currCorrect === 6) {
+                    window.open("finale.html", "_self");
+                } else {
+                    currCorrect = 0;
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <canvas></canvas>
+        <script type="text/javascript" src="js/particles.js"></script>
+        <div class="container main">
+            <span style="display: inline;">
+                <h1> Family Photo Trivia </h1>
+                <h3> In this step you will be giving the location of each of these pictures </h3>
+                <p> Once you get a photo correct the text box will lock </p>
+                <div class = "row">
+                    <div class = "row">
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG_1071.JPG" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="disney"> 
+                        </div>
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG_3188.JPG" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="ohio"> 
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG950128_01.jpg" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="universal"> 
+                        </div>
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG_0945.JPG" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="buffalo"> 
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG_1198.JPG" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="epcot"> 
+                        </div>
+                        <div class ="col-sm-6">
+                            <img src="assets/pictures/IMG950783.jpg" class = "img-rounded img-responsive">
+                            <input type="text" class = "form-control" id="linkedin"> 
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <button type="button" class="btn btn-warning" onClick="handleClick()">Submit!</button>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </body>
+</html>
