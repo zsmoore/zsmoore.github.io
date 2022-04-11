@@ -4,9 +4,10 @@ let thresh = 0;
 function sumWithLag(lag, samples) {
   let sum = 0;
   for (let i = 0; i <= samples.length - lag - 1; i++) {
-    sum += ([samples[i] * samples[i + lag]]);
+    sum += (samples[i] * samples[i + lag]);
   }
-  console.log('SUM' + sum);
+  console.log('SUM');
+  console.log(sum);
   return sum;
 }
 
