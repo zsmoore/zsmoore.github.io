@@ -166,7 +166,7 @@ function draw() {
     return;
   }
 
-  bgAndStroke = setBackgroundAndStroke(getAudioContext().currentTime);
+  bgAndStroke = getBackgroundAndStroke(getAudioContext().currentTime);
   if (bgAndStroke != undefined) {
     stroke(bgAndStroke['strokeC']);
     background(bgAndStroke['bg']);
