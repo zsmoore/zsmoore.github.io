@@ -108,15 +108,16 @@ function draw() {
   strokeWeight(3);
   stroke(255);
 
-  history.unshift(dataArray);
-  history = history.slice(0, 10);
-  for (let i = 0; i < 10; i++) {
-    if (history.length <= i) {
-      break;
-    }
-    arr = history[i]
-    drawWave(arr, i);
-  }
+  drawWave(arr, 0);
+  // history.unshift(dataArray);
+  // history = history.slice(0, 10);
+  // for (let i = 0; i < 10; i++) {
+  //   if (history.length <= i) {
+  //     break;
+  //   }
+  //   arr = history[i]
+  //   drawWave(arr, i);
+  // }
 }
 
 function drawWave(arr, adjustment) {
