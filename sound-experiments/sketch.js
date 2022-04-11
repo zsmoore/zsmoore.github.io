@@ -130,9 +130,18 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
   };
 }
 
+let dataArray;
+class Processor extends AudioWorkletProcessor {
+  process (inputs, outputs, parameters) {
+    // this is awful but im not setting up import exports
+    dataArray = inputs[0];
+  }
+}
+
+registerProcessor('processor', Processor);
+
 let sound;
 let analyser;
-var dataArray;
 let started = false;
 function onSoundLoadSuccess(e){
   analyser = getAudioContext().createAnalyser();
