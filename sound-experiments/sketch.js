@@ -130,40 +130,23 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
   };
 }
 
-let dataArray;
-class Processor extends AudioWorkletProcessor {
-  process (inputs, outputs, parameters) {
-    // this is awful but im not setting up import exports
-    dataArray = inputs[0];
-  }
-}
-
-registerProcessor('processor', Processor);
-
 let sound;
 let analyser;
+let dataArray;
 let started = false;
 function onSoundLoadSuccess(e){
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  getAudioContext().audioWorklet.addModule('processor.js').then((value) => {
-    console.log(value);
-    let node = new Processor(getAudioContext(), 'processor');
-    sound.connect(analyser);
-    analyser.connect(node);
-  });
-
-
-
-  // let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
-  // processorNode.onaudioprocess = () => {
-  //   self.spectrum = new Float32Array(4096);
-  //   analyser.getFloatTimeDomainData(self.spectrum);
-  //   dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
-  // }
-  
+  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  processorNode.onaudioprocess = () => {
+    self.spectrum = new Float32Array(4096);
+    analyser.getFloatTimeDomainData(self.spectrum);
+    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  }
+  sound.connect(analyser);
+  analyser.connect(processorNode);
   console.log("load sound success",e);
 }
 function onSoundLoadError(e){
