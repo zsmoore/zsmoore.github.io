@@ -109,6 +109,7 @@ function draw() {
   stroke(255);
 
   drawWave(dataArray, 0);
+  console.log( Math.abs(Math.max(...dataArray)));
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {
