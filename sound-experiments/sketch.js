@@ -133,6 +133,7 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
 let sound;
 let analyser;
 let dataArray;
+let started = false;
 function onSoundLoadSuccess(e){
   sound.play();
   analyser = getAudioContext().createAnalyser();
@@ -190,9 +191,22 @@ function getBackgroundAndStroke(currentTime) {
   }
 }
 
+function mousePressed() {
+  if (!started) {
+    started = true;
+    userStartAudio();
+  }
+}
+
 function draw() {
   if (dataArray == undefined) {
     console.log('In Draw data array dead');
+    return;
+  }
+
+  if (!started) {
+    textAlign(CENTER, CENTER);
+    text("Click to start", width/2, height/2);
     return;
   }
 
