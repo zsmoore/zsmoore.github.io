@@ -6,8 +6,6 @@ function sumWithLag(lag, samples) {
   for (let i = 0; i <= samples.length - lag - 1; i++) {
     sum += (samples[i] * samples[i + lag]);
   }
-  console.log('SUM');
-  console.log(sum);
   return sum;
 }
 
