@@ -120,12 +120,12 @@ function draw() {
 }
 
 function drawWave(arr, adjustment) {
-  stroke(255 - adjustment);
+  stroke(255 - (adjustment * 20));
   beginShape();
   for (let i = 0; i < arr.length; i++) {
     let w = map(i, 0, arr.length, 1, width);
     let h = map(arr[i], -1, 1, height, 0);
-    curveVertex(w + adjustment, h + adjustment);
+    curveVertex(w + (adjustment * 20), h + (adjustment * 20));
   }
   endShape();
 }
