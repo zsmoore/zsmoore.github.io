@@ -173,7 +173,7 @@ function draw() {
   }
   clear();
 
-  bgAndStroke = getBackgroundAndStroke(getAudioContext().currentTime);
+  bgAndStroke = getBackgroundAndStroke(sound.currentTime());
   if (bgAndStroke != undefined) {
     stroke(bgAndStroke['strokeC']);
     background(bgAndStroke['bg']);
