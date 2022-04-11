@@ -166,7 +166,6 @@ let currentBg = 1;
 let currentStroke = 255;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  noFill();
   background(currentBg);
   stroke(currentStroke);
 }
@@ -199,16 +198,19 @@ function mousePressed() {
 }
 
 function draw() {
+  if (!started) {
+    textAlign(CENTER, CENTER);
+    fill(255);
+    text("Click to start", width/2, height/2);
+    return;
+  }
+
   if (dataArray == undefined) {
     console.log('In Draw data array dead');
     return;
   }
 
-  if (!started) {
-    textAlign(CENTER, CENTER);
-    text("Click to start", width/2, height/2);
-    return;
-  }
+  noFill();
 
   bgAndStroke = getBackgroundAndStroke(sound.currentTime());
   if (bgAndStroke != undefined) {
