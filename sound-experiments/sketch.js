@@ -108,7 +108,7 @@ function draw() {
   strokeWeight(3);
   stroke(255);
 
-  drawWave(arr, 0);
+  drawWave(dataArray, 0);
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {
