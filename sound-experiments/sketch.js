@@ -112,9 +112,9 @@ function draw() {
   stroke(0);
 
   beginShape();
-  for (let i = 0; i < data.length; i++) {
-    let w = map(i, 0, data.length, 1, width);
-    let h = map(data[i], -1, 1, height, 0);
+  for (let i = 0; i < dataArray.length; i++) {
+    let w = map(i, 0, dataArray.length, 1, width);
+    let h = map(dataArray[i], -1, 1, height, 0);
     curveVertex(w, h);
   }
   endShape();
