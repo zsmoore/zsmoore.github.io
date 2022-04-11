@@ -186,7 +186,7 @@ function draw() {
 }
 
 function drawWave(arr, adjustment) {
-  stroke(255 - (adjustment * 20));
+  // stroke(255 - (adjustment * 20));
   beginShape();
   for (let i = 0; i < arr.length; i++) {
     let w = map(i, 0, arr.length, 1, width);
