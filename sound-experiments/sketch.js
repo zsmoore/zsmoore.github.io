@@ -8,10 +8,13 @@ let swaps = [
   34.5,
   43,
   52,
+  62,
+
 ];
 
 let lastBucket = 0;
 function bucketChanged(currentTime) {
+  console.log(currentTime);
   for (let i = 0; i < swaps.length; i++) {
     if (currentTime > swaps[i]) {
       if (swaps[i] != lastBucket) {
@@ -143,15 +146,17 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function setBackgroundAndStroke(currentTime) {
+function getBackgroundAndStroke(currentTime) {
   if (bucketChanged(currentTime)) {
     let bg = getRandomColor();
     let strokeC = getRandomColor();;
     while (strokeC == bg) {
       strokeC = getRandomColor();
     }
-    stroke(strokeC);
-    background(bg);
+    return {
+      "strokeC": strokeC,
+      "bg": bg
+    };
   }
 }
 
@@ -161,11 +166,14 @@ function draw() {
     return;
   }
 
-  setBackgroundAndStroke(getAudioContext().currentTime);
+  bgAndStroke = setBackgroundAndStroke(getAudioContext().currentTime);
+  if (bgAndStroke != undefined) {
+    stroke(bgAndStroke['strokeC']);
+    background(bgAndStroke['bg']);
+  }
   strokeWeight(3);
 
   drawWave(dataArray, 0);
-  console.log( Math.abs(Math.max(...dataArray)));
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {
