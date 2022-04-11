@@ -14,20 +14,21 @@ let swaps = [
 
 let lastBucket = 0;
 function bucketChanged(currentTime) {
-  console.log(currentTime);
-  console.log(lastBucket);
   for (let i = 0; i < swaps.length; i++) {
-    console.log(swaps[i]);
     if (currentTime > swaps[i]) {
-      console.log('time greator');
-      if (swaps[i] != lastBucket) {
-        console.log('updating bucket');
-        lastBucket = swaps[i];
-        return true;
+      if (i != swaps.length - 1 && currentTime > swaps[i+1]) {
+        continue;
       } else {
-        console.log('not updating bucket');
-        return false;
+        if (swaps[i] != lastBucket) {
+          console.log('updating bucket');
+          lastBucket = swaps[i];
+          return true;
+        } else {
+          console.log('not updating bucket');
+          return false;
+        }
       }
+      console.log('time greator');
     }
   }
   return false;
