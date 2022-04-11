@@ -132,21 +132,29 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
 
 let sound;
 let analyser;
-let dataArray;
+var dataArray;
 let started = false;
 function onSoundLoadSuccess(e){
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
-  processorNode.onaudioprocess = () => {
-    self.spectrum = new Float32Array(4096);
-    analyser.getFloatTimeDomainData(self.spectrum);
-    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
-  }
-  sound.connect(analyser);
-  analyser.connect(processorNode);
+  getAudioContext().audioWorklet.addModule('processor.js').then((value) => {
+    console.log(value);
+    let node = new Processor(getAudioContext(), 'processor');
+    sound.connect(analyser);
+    analyser.connect(node);
+  });
+
+
+
+  // let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  // processorNode.onaudioprocess = () => {
+  //   self.spectrum = new Float32Array(4096);
+  //   analyser.getFloatTimeDomainData(self.spectrum);
+  //   dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  // }
+  
   console.log("load sound success",e);
 }
 function onSoundLoadError(e){
