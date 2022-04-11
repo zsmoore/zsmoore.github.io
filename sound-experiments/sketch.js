@@ -1,3 +1,30 @@
+let swaps = [
+  9,
+  15,
+  19.5,
+  21,
+  24.5,
+  29.5,
+  34.5,
+  43,
+  52,
+];
+
+let lastBucket = 0;
+function bucketChanged(currentTime) {
+  for (let i = 0; i < swaps.length; i++) {
+    if (currentTime > swaps[i]) {
+      if (swaps[i] != lastBucket) {
+        lastBucket = swaps[i];
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  return false;
+}
+
 let sumOld = 0;
 let thresh = 0;
 
@@ -82,6 +109,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noFill();
+  background(1);
+  stroke(255);
 
   sound.play();
   analyser = getAudioContext().createAnalyser();
@@ -98,15 +127,42 @@ function setup() {
   analyser.connect(processorNode);
 }
 
+let colors = [
+  '#fb4934',
+  '#b8bb26',
+  '#fabd2f',
+  '#83a598',
+  '#d3869b',
+  '#8ec07c',
+  '#fe8019',
+  '#282828',
+  '#fbf1c7',
+];
+
+function getRandomColor() {
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function setBackgroundAndStroke(currentTime) {
+  if (bucketChanged(currentTime)) {
+    let bg = getRandomColor();
+    let strokeC = getRandomColor();;
+    while (strokeC == bg) {
+      strokeC = getRandomColor();
+    }
+    stroke(strokeC);
+    background(bg);
+  }
+}
+
 function draw() {
   if (dataArray == undefined) {
     console.log('In Draw data array dead');
     return;
   }
 
-  background(1);
+  setBackgroundAndStroke(getAudioContext().currentTime);
   strokeWeight(3);
-  stroke(255);
 
   drawWave(dataArray, 0);
   console.log( Math.abs(Math.max(...dataArray)));
