@@ -1,14 +1,18 @@
 let swaps = [
-  9,
-  15,
+  9.5, // too quick
+  15.75, // slightly too quick
   19.5,
-  21,
-  24.5,
-  29.5,
-  34.5,
-  43,
-  52,
+  21.75, // too quick
+  24.7, // pretty good
+  29.5, // good
+  34.5, // good
+  44.5, // too quick
+  52.5, // too quick
   62,
+  72,
+  77.9,
+  83.7,
+  93.7
 
 ];
 
