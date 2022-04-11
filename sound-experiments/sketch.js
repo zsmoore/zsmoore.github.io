@@ -20,15 +20,12 @@ function bucketChanged(currentTime) {
         continue;
       } else {
         if (swaps[i] != lastBucket) {
-          console.log('updating bucket');
           lastBucket = swaps[i];
           return true;
         } else {
-          console.log('not updating bucket');
           return false;
         }
       }
-      console.log('time greator');
     }
   }
   return false;
@@ -115,11 +112,13 @@ function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
 
+let currentBg = 1;
+let currentStroke = 255;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noFill();
-  background(1);
-  stroke(255);
+  background(currentBg);
+  stroke(currentStroke);
 
   sound.play();
   analyser = getAudioContext().createAnalyser();
@@ -161,7 +160,7 @@ function getBackgroundAndStroke(currentTime) {
     }
     return {
       "strokeC": strokeC,
-      "bg": bg
+      "bg": bg,
     };
   }
 }
@@ -171,13 +170,14 @@ function draw() {
     console.log('In Draw data array dead');
     return;
   }
-  clear();
 
   bgAndStroke = getBackgroundAndStroke(sound.currentTime());
   if (bgAndStroke != undefined) {
-    stroke(bgAndStroke['strokeC']);
-    background(bgAndStroke['bg']);
+    currentBg = bgAndStroke['bg'];
+    currentStroke = bgAndStroke['strokeC'];
   }
+  stroke(currentStroke);
+  background(currentBg);
   strokeWeight(3);
 
   drawWave(dataArray, 0);
