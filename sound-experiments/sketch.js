@@ -1,13 +1,13 @@
 let swaps = [
-  9.5, // too quick
-  15.75, // slightly too quick
+  9.5, 
+  15.75,
   19.5,
-  21.75, // too quick
-  24.7, // pretty good
-  29.5, // good
-  34.5, // good
-  44.5, // too quick
-  52.5, // too quick
+  21.75,
+  24.7, 
+  29.5, 
+  34.5, 
+  44.5, 
+  52.5, 
   62,
   72,
   77.9,
@@ -16,7 +16,40 @@ let swaps = [
 
 ];
 
+let albumsToColors = {
+  "12BarBruise": ['#2Bfb4f', '#c54835', '#e2c743', '#172119', '#e48550', '#ce4b3d', '#457D58'],
+  "EyesLikeSky": ['#d6bc63', '#faf2d1', '#a38d5a', '#272720', '#caa53a', '#cfa948', '#f5eac5'],
+  "FloatAlongFill": ['#d3c6df', '#e87e3c', '#cbda65', '#e07239', '#e3cc4c','#76a54b', '#6d6736'],
+  "Default": ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019', '#282828', '#fbf1c7']
+}
+
 let lastBucket = 0;
+let albumStart = [
+  ["12BarBruise", 9.5],
+  ["EyesLikeSky", 44.5],
+  ["FloatAlongFill", 77.9],
+  ["Default", 93.7],
+]
+
+function getCurrentAlbum(currentTime) {
+  for (let i = 0; i < albumStart.length; i++) {
+    let album = albumStart[i];
+    if (i != albumStart.length - 1) {
+      let nextAlbum = albumStart[i + 1];
+      if (currentTime > nextAlbum[1]) {
+        continue;
+      } else {
+        return album[0];
+      }
+    }
+    
+    if (currentTime > album) {
+      return album[0];
+    }
+  }
+  return "Default";
+}
+
 function bucketChanged(currentTime) {
   for (let i = 0; i < swaps.length; i++) {
     if (currentTime > swaps[i]) {
@@ -139,28 +172,18 @@ function setup() {
   analyser.connect(processorNode);
 }
 
-let colors = [
-  '#fb4934',
-  '#b8bb26',
-  '#fabd2f',
-  '#83a598',
-  '#d3869b',
-  '#8ec07c',
-  '#fe8019',
-  '#282828',
-  '#fbf1c7',
-];
-
-function getRandomColor() {
-  return colors[Math.floor(Math.random() * colors.length)];
+function getRandomColor(colorList) {
+  return colorList[Math.floor(Math.random() * colorList.length)];
 }
 
 function getBackgroundAndStroke(currentTime) {
   if (bucketChanged(currentTime)) {
-    let bg = getRandomColor();
-    let strokeC = getRandomColor();;
+    let album = getCurrentAlbum(currentTime);
+    let colorList = albumsToColors[album];
+    let bg = getRandomColor(colorList);
+    let strokeC = getRandomColor(colorList);
     while (strokeC == bg) {
-      strokeC = getRandomColor();
+      strokeC = getRandomColor(colorList);
     }
     return {
       "strokeC": strokeC,
