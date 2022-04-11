@@ -74,6 +74,7 @@ function onSoundLoadProgress(e){
 let sound;
 let analyser;
 let dataArray;
+let history = [];
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
@@ -107,11 +108,24 @@ function draw() {
   strokeWeight(3);
   stroke(255);
 
+  history.unshift(dataArray);
+  history = history.slice(0, 10);
+  for (let i = 0; i < 10; i++) {
+    if (history.length <= i) {
+      break;
+    }
+    arr = history[i]
+    drawWave(arr, i);
+  }
+}
+
+function drawWave(arr, adjustment) {
+  stroke(255 - adjustment);
   beginShape();
-  for (let i = 0; i < dataArray.length; i++) {
-    let w = map(i, 0, dataArray.length, 1, width);
-    let h = map(dataArray[i], -1, 1, height, 0);
-    curveVertex(w, h);
+  for (let i = 0; i < arr.length; i++) {
+    let w = map(i, 0, arr.length, 1, width);
+    let h = map(arr[i], -1, 1, height, 0);
+    curveVertex(w + adjustment, h + adjustment);
   }
   endShape();
 }
