@@ -135,7 +135,6 @@ let analyser;
 let dataArray;
 let started = false;
 function onSoundLoadSuccess(e){
-  sound.play();
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
