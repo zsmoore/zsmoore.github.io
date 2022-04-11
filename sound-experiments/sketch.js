@@ -92,11 +92,14 @@ function setup() {
     self.spectrum = new Float32Array(4096);
     analyser.getFloatTimeDomainData(self.spectrum);
     data = getFrequencyAndNormalizedData(self.spectrum, audioCtx.sampleRate)['normalizeData'];
-    
+    console.log(data);
   }
 }
 
 function draw() {
+  if (data == undefined) {
+    return;
+  }
   background(1);
   strokeWeight(3);
 
