@@ -92,7 +92,6 @@ function setup() {
     self.spectrum = new Float32Array(4096);
     analyser.getFloatTimeDomainData(self.spectrum);
     dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
-    console.log(dataArray);
   }
   sound.connect(analyser);
   analyser.connect(processorNode);
