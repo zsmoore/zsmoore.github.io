@@ -231,14 +231,42 @@ function onSoundLoadSuccess(e){
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
-  processorNode.onaudioprocess = () => {
-    self.spectrum = new Float32Array(4096);
-    analyser.getFloatTimeDomainData(self.spectrum);
-    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  class ProcessorNode extends AudioWorkletNode {
+    constructor(context) {
+      super(context, 'processor-node');
+    }
+
+    static get parameterDescriptors() {
+      return [{
+        name: 'data',
+        defaultValue: 0.7
+      }];
+    }
+
+    process(inputs, outputs, parameters) {
+      const vals = parameters.data;
+      if (vals.length !== 1) {
+        dataArray = vals;
+      }
+
+      return true;
+    }
   }
-  sound.connect(analyser);
-  analyser.connect(processorNode);
+
+  getAudioContext().audioWorklet.addModule('sketch.js').then(() => {
+    let node = new ProcessorNode(getAudioContext());
+    sound.connect(analyser);
+    analyser.connect(node);
+  });
+
+  // let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  // processorNode.onaudioprocess = () => {
+  //   self.spectrum = new Float32Array(4096);
+  //   analyser.getFloatTimeDomainData(self.spectrum);
+  //   dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  // }
+  // sound.connect(analyser);
+  // analyser.connect(processorNode);
   console.log("load sound success",e);
 }
 function onSoundLoadError(e){
