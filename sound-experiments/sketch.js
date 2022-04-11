@@ -120,7 +120,7 @@ let albumStart = [
   ["FloatAlongFill", 77.9],
   ["Oddments", 110.75],
   ["ImInYourMind", 157],
-  ["Default", 93.7],
+  ["Default", 204],
 ]
 
 function getCurrentAlbum(currentTime) {
@@ -252,7 +252,8 @@ function onSoundLoadSuccess(e){
       return true;
     }
   }
-
+  
+  registerProcessor('processor-node', ProcessorNode);
   getAudioContext().audioWorklet.addModule('sketch.js').then(() => {
     let node = new ProcessorNode(getAudioContext());
     sound.connect(analyser);
