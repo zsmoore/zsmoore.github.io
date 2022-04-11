@@ -6,6 +6,7 @@ function sumWithLag(lag, samples) {
   for (let i = 0; i <= samples.length - lag - 1; i++) {
     sum += ([samples[i] * samples[i + lag]]);
   }
+  console.log('SUM' + sum);
   return sum;
 }
 
@@ -76,7 +77,7 @@ function onSoundLoadProgress(e){
 
 let sound;
 let analyser;
-let dataArray = new Float32Array(4096);
+let dataArray;
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
@@ -89,15 +90,22 @@ function setup() {
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
+
+  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  processorNode.onaudioprocess = () => {
+    self.spectrum = new Float32Array(4096);
+    analyser.getFloatTimeDomainData(self.spectrum);
+    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  }
   sound.connect(analyser);
+  analyser.connect(processorNode);
 }
 
 function draw() {
+  if (dataArray == undefined) {
+    return;
+  }
 
-  analyser.getFloatTimeDomainData(dataArray);
-  console.log(dataArray);
-  data = getFrequencyAndNormalizedData(dataArray, sound.sampleRate())['normalizeData'];
-  console.log(data);
   background(1);
   strokeWeight(3);
   stroke(0);
