@@ -17,11 +17,15 @@ function bucketChanged(currentTime) {
   console.log(currentTime);
   console.log(lastBucket);
   for (let i = 0; i < swaps.length; i++) {
+    console.log(swaps[i]);
     if (currentTime > swaps[i]) {
+      console.log('time greator');
       if (swaps[i] != lastBucket) {
+        console.log('updating bucket');
         lastBucket = swaps[i];
         return true;
       } else {
+        console.log('not updating bucket');
         return false;
       }
     }
