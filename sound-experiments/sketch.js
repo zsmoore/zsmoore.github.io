@@ -83,8 +83,7 @@ function setup() {
   noFill();
 
   sound.play();
-  let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = audioCtx.createAnalyser();
+  analyser = sound.ac.createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
   sound.connect(analyser);
