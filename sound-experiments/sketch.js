@@ -109,8 +109,8 @@ function draw() {
   stroke(255);
 
   history.unshift(dataArray);
-  history = history.slice(0, 5);
-  for (let i = 0; i < 5; i++) {
+  history = history.slice(0, 10);
+  for (let i = 0; i < 10; i++) {
     if (history.length <= i) {
       break;
     }
@@ -120,16 +120,12 @@ function draw() {
 }
 
 function drawWave(arr, adjustment) {
-  if (adjustment == 0) {
-    stroke(255);
-  } else {
-    stroke(100);
-  }
+  stroke(255 - (adjustment * 20));
   beginShape();
   for (let i = 0; i < arr.length; i++) {
     let w = map(i, 0, arr.length, 1, width);
     let h = map(arr[i], -1, 1, height, 0);
-    curveVertex(w + (adjustment * 75), h + (adjustment * 75));
+    curveVertex(w + (adjustment * 20), h + (adjustment * 20));
   }
   endShape();
 }
