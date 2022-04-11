@@ -51,8 +51,11 @@ function getFrequency(samples, sampleRate) {
 
 
 function getFrequencyAndNormalizedData(samples, sampleRate) {
+  console.log('start');
   let autoCorrelation = correlate(samples);
+  console.log(autoCorrelation);
   let normalized = maxAbsoluteScaling(autoCorrelation);
+  console.log(normalized);
   let freq = getFrequency(normalized, sampleRate);
   return {
     'freq': freq,
