@@ -106,7 +106,7 @@ function draw() {
 
   background(1);
   strokeWeight(3);
-  stroke(0);
+  stroke(255);
 
   beginShape();
   for (let i = 0; i < dataArray.length; i++) {
