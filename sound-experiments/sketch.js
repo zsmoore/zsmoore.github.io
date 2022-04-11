@@ -16,11 +16,53 @@ let swaps = [
 
 ];
 
-let albumsToColors = {
-  "12BarBruise": ['#2Bfb4f', '#c54835', '#e2c743', '#172119', '#e48550', '#ce4b3d', '#457D58'],
-  "EyesLikeSky": ['#d6bc63', '#faf2d1', '#a38d5a', '#272720', '#caa53a', '#cfa948', '#f5eac5'],
-  "FloatAlongFill": ['#d3c6df', '#e87e3c', '#cbda65', '#e07239', '#e3cc4c','#76a54b', '#6d6736'],
-  "Default": ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019', '#282828', '#fbf1c7']
+// let albumsToColors = {
+//   "12BarBruise": ['#2Bfb4f', '#c54835', '#e2c743', '#172119', '#e48550', '#ce4b3d', '#457D58'],
+//   "EyesLikeSky": ['#d6bc63', '#faf2d1', '#a38d5a', '#272720', '#caa53a', '#cfa948', '#f5eac5'],
+//   "FloatAlongFill": ['#d3c6df', '#e87e3c', '#cbda65', '#e07239', '#e3cc4c','#76a54b', '#6d6736'],
+//   "Default": ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019', '#282828', '#fbf1c7']
+// }
+
+let albumToRGBColors = {
+  "12BarBruise": [
+    [46, 61, 37],
+    [201, 66, 49],
+    [194, 195, 112],
+    [105, 68, 44],
+    [196, 133, 89],
+    [144, 61, 42],
+    [56, 179, 151],
+    [210, 229, 202],
+    [186, 104, 110],
+    [172, 140, 156], 
+    [190, 73, 53]
+  ],
+  "EyesLikeSky": [
+    [50, 41, 21],
+    [46, 61, 37],
+    [201, 66, 49],
+    [194, 195, 112],
+    [105, 68, 44],
+    [196, 133, 89],
+    [144, 61, 42],
+    [56, 179, 151],
+    [210, 229, 202],
+    [186, 104, 11], 
+    [172, 140, 156]
+  ],
+  "FloatAlongFill" :  [
+    [211, 196, 54],
+    [28, 71, 34],
+    [101, 162, 65],
+    [149, 81, 32],
+    [210, 116, 39],
+    [222, 195, 212],
+    [44, 170, 74],
+    [144, 183, 67],
+    [222, 182, 126],
+    [64, 176, 100], 
+    [205, 175, 53]
+  ],
 }
 
 let lastBucket = 0;
@@ -161,8 +203,8 @@ function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
 
-let currentBg = 1;
-let currentStroke = 255;
+let currentBg = [0, 0, 0];
+let currentStroke = [255, 255, 255];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(currentBg);
@@ -176,7 +218,7 @@ function getRandomColor(colorList) {
 function getBackgroundAndStroke(currentTime) {
   if (bucketChanged(currentTime)) {
     let album = getCurrentAlbum(currentTime);
-    let colorList = albumsToColors[album];
+    let colorList = albumToRGBColors[album];
     let bg = getRandomColor(colorList);
     let strokeC = getRandomColor(colorList);
     while (strokeC == bg) {
@@ -217,8 +259,8 @@ function draw() {
     currentBg = bgAndStroke['bg'];
     currentStroke = bgAndStroke['strokeC'];
   }
-  stroke(currentStroke);
-  background(currentBg);
+  stroke(currentStroke[0], currentStroke[1], currentStroke[2]);
+  background(currentBg[0], currentBg[1], currentBg[2]);
   strokeWeight(3);
 
   drawWave(dataArray, 0);
