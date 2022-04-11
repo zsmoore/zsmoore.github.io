@@ -72,8 +72,8 @@ function onSoundLoadProgress(e){
 
 
 let sound;
-let data;
-
+let analyser;
+let dataArray = new Float32Array(4096);
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
@@ -84,22 +84,17 @@ function setup() {
 
   sound.play();
   let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  let analyser = audioCtx.createAnalyser();
+  analyser = audioCtx.createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
-  let node = audioCtx.createScriptProcessor(4096, 1, 1);
-  node.onaudioprocess = () => {
-    self.spectrum = new Float32Array(4096);
-    analyser.getFloatTimeDomainData(self.spectrum);
-    data = getFrequencyAndNormalizedData(self.spectrum, audioCtx.sampleRate)['normalizeData'];
-    console.log(data);
-  }
+  sound.connect(analyser);
 }
 
 function draw() {
-  if (data == undefined) {
-    return;
-  }
+
+  analyser.getFloatTimeDomainData(dataArray);
+  data = getFrequencyAndNormalizedData(self.spectrum, audioCtx.sampleRate)['normalizeData'];
+  console.log(data);
   background(1);
   strokeWeight(3);
   stroke(0);
