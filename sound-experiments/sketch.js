@@ -15,6 +15,7 @@ let swaps = [
 let lastBucket = 0;
 function bucketChanged(currentTime) {
   console.log(currentTime);
+  console.log(lastBucket);
   for (let i = 0; i < swaps.length; i++) {
     if (currentTime > swaps[i]) {
       if (swaps[i] != lastBucket) {
@@ -83,9 +84,9 @@ function getFrequency(samples, sampleRate) {
 function getFrequencyAndNormalizedData(samples, sampleRate) {
   let autoCorrelation = correlate(samples);
   let normalized = maxAbsoluteScaling(autoCorrelation);
-  let freq = getFrequency(normalized, sampleRate);
+  // let freq = getFrequency(normalized, sampleRate);
   return {
-    'freq': freq,
+    // 'freq': freq,
     'normalizeData': normalized
   };
 }
@@ -165,6 +166,7 @@ function draw() {
     console.log('In Draw data array dead');
     return;
   }
+  clear();
 
   bgAndStroke = getBackgroundAndStroke(getAudioContext().currentTime);
   if (bgAndStroke != undefined) {
