@@ -83,7 +83,7 @@ function setup() {
   noFill();
 
   sound.play();
-  analyser = p5Sound.audiocontext.createAnalyser();
+  analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
   sound.connect(analyser);
