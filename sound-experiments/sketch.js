@@ -86,13 +86,13 @@ function setup() {
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
-  sound.connect(analyser);
+  soundOut.connect(analyser);
 }
 
 function draw() {
 
   analyser.getFloatTimeDomainData(dataArray);
-  data = getFrequencyAndNormalizedData(self.spectrum, audioCtx.sampleRate)['normalizeData'];
+  data = getFrequencyAndNormalizedData(dataArray, sound.sampleRate())['normalizeData'];
   console.log(data);
   background(1);
   strokeWeight(3);
