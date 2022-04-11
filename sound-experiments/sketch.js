@@ -130,6 +130,9 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
   };
 }
 
+let sound;
+let analyser;
+let dataArray;
 function onSoundLoadSuccess(e){
   sound.play();
   analyser = getAudioContext().createAnalyser();
@@ -153,10 +156,6 @@ function onSoundLoadProgress(e){
   console.log("load sound progress",e);
 }
 
-
-let sound;
-let analyser;
-let dataArray;
 let history = [];
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
