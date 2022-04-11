@@ -72,7 +72,9 @@ function onSoundLoadProgress(e){
 
 
 let sound;
+let data;
 
+analyser.getByteTimeDomainData(dataArray);
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
@@ -82,17 +84,27 @@ function setup() {
   noFill();
 
   sound.play();
+  let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  let analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 4096;
+  analyser.smoothingTimeConstant = .2;
+  let node = contextt.createScriptProcessor(4096, 1, 1);
+  node.onaudioprocess = () => {
+    self.spectrum = new Float32Array(4096);
+    analyser.getFloatTimeDomainData(self.spectrum);
+    data = getFrequencyAndNormalizedData(self.spectrum, audioCtx.sampleRate)['normalizeData'];
+    
+  }
 }
 
 function draw() {
   background(1);
   strokeWeight(3);
 
-  const { freq, normalizeData } = getFrequencyAndNormalizedData(0, 0);
   beginShape();
-  for (let i = 0; i < normalizeData.length; i++) {
-    let w = map(i, 0, normalizeData.length, 1, width);
-    let h = map(normalizeData[i], -1, 1, height, 0);
+  for (let i = 0; i < data.length; i++) {
+    let w = map(i, 0, data.length, 1, width);
+    let h = map(data[i], -1, 1, height, 0);
     curveVertex(w, h);
   }
   endShape();
