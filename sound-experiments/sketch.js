@@ -92,6 +92,7 @@ function setup() {
 function draw() {
 
   analyser.getFloatTimeDomainData(dataArray);
+  console.log(dataArray);
   data = getFrequencyAndNormalizedData(dataArray, sound.sampleRate())['normalizeData'];
   console.log(data);
   background(1);
