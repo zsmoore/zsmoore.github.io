@@ -193,6 +193,7 @@ function mousePressed() {
   if (!started) {
     started = true;
     userStartAudio();
+    sound.play();
   }
 }
 
