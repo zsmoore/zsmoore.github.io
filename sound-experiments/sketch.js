@@ -74,7 +74,6 @@ function onSoundLoadProgress(e){
 let sound;
 let data;
 
-analyser.getByteTimeDomainData(dataArray);
 function preload() {
   sound = loadSound('assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
