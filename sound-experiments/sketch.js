@@ -74,7 +74,7 @@ function onSoundLoadProgress(e){
 let sound;
 
 function preload() {
-  sound = loadSound('http://localhost/assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
+  sound = loadSound('sound-experiments/assets/gizz.mp4', onSoundLoadSuccess, onSoundLoadError, onSoundLoadProgress);
 }
 
 function setup() {
