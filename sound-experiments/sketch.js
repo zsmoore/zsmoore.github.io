@@ -88,7 +88,7 @@ function setup() {
   let analyser = audioCtx.createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
-  let node = contextt.createScriptProcessor(4096, 1, 1);
+  let node = audioCtx.createScriptProcessor(4096, 1, 1);
   node.onaudioprocess = () => {
     self.spectrum = new Float32Array(4096);
     analyser.getFloatTimeDomainData(self.spectrum);
