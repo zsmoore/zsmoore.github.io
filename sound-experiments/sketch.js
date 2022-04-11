@@ -51,11 +51,8 @@ function getFrequency(samples, sampleRate) {
 
 
 function getFrequencyAndNormalizedData(samples, sampleRate) {
-  console.log('start');
   let autoCorrelation = correlate(samples);
-  console.log(autoCorrelation);
   let normalized = maxAbsoluteScaling(autoCorrelation);
-  console.log(normalized);
   let freq = getFrequency(normalized, sampleRate);
   return {
     'freq': freq,
@@ -95,6 +92,7 @@ function setup() {
     self.spectrum = new Float32Array(4096);
     analyser.getFloatTimeDomainData(self.spectrum);
     dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+    console.log(dataArray);
   }
   sound.connect(analyser);
   analyser.connect(processorNode);
@@ -102,6 +100,7 @@ function setup() {
 
 function draw() {
   if (dataArray == undefined) {
+    console.log('In Draw data array dead');
     return;
   }
 
