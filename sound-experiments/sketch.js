@@ -131,6 +131,19 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
 }
 
 function onSoundLoadSuccess(e){
+  sound.play();
+  analyser = getAudioContext().createAnalyser();
+  analyser.fftSize = 4096;
+  analyser.smoothingTimeConstant = .2;
+
+  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  processorNode.onaudioprocess = () => {
+    self.spectrum = new Float32Array(4096);
+    analyser.getFloatTimeDomainData(self.spectrum);
+    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  }
+  sound.connect(analyser);
+  analyser.connect(processorNode);
   console.log("load sound success",e);
 }
 function onSoundLoadError(e){
@@ -156,20 +169,6 @@ function setup() {
   noFill();
   background(currentBg);
   stroke(currentStroke);
-
-  sound.play();
-  analyser = getAudioContext().createAnalyser();
-  analyser.fftSize = 4096;
-  analyser.smoothingTimeConstant = .2;
-
-  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
-  processorNode.onaudioprocess = () => {
-    self.spectrum = new Float32Array(4096);
-    analyser.getFloatTimeDomainData(self.spectrum);
-    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
-  }
-  sound.connect(analyser);
-  analyser.connect(processorNode);
 }
 
 function getRandomColor(colorList) {
