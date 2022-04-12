@@ -19,3 +19,5 @@ class ProcessorNode extends AudioWorkletProcessor {
     return true;
   }
 }
+
+registerProcessor('processor-node', ProcessorNode);

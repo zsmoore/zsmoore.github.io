@@ -233,8 +233,7 @@ function onSoundLoadSuccess(e){
   analyser.smoothingTimeConstant = .2;
 
   getAudioContext().audioWorklet.addModule('processor.js').then(() => {
-    registerProcessor('processor-node', ProcessorNode);
-    let node = new ProcessorNode(getAudioContext());
+    let node = new AudioWorkletNode(getAudioContext(), 'processor-node');
     sound.connect(analyser);
     analyser.connect(node);
   });
