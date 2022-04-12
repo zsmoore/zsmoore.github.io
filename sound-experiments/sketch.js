@@ -21,7 +21,7 @@ class ProcessorNode extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('processor-node', ProcessorNode);
+getAudioContext().audioWorklet.registerProcessor('processor-node', ProcessorNode);
 
 let swaps = [
   9.5, 
