@@ -1,3 +1,4 @@
+let dataArray;
 let swaps = [
   9.5, 
   15.75,
@@ -231,20 +232,20 @@ function onSoundLoadSuccess(e){
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  getAudioContext().audioWorklet.addModule('processor.js').then(() => {
-    node = new AudioWorkletNode(getAudioContext(), 'processor-node');
-    sound.connect(analyser);
-    analyser.connect(node);
-  });
+  // getAudioContext().audioWorklet.addModule('processor.js').then(() => {
+  //   node = new AudioWorkletNode(getAudioContext(), 'processor-node');
+  //   sound.connect(analyser);
+  //   analyser.connect(node);
+  // });
 
-  // let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
-  // processorNode.onaudioprocess = () => {
-  //   self.spectrum = new Float32Array(4096);
-  //   analyser.getFloatTimeDomainData(self.spectrum);
-  //   dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
-  // }
-  // sound.connect(analyser);
-  // analyser.connect(processorNode);
+  let processorNode = getAudioContext().createScriptProcessor(4096, 1, 1);
+  processorNode.onaudioprocess = () => {
+    self.spectrum = new Float32Array(4096);
+    analyser.getFloatTimeDomainData(self.spectrum);
+    dataArray = getFrequencyAndNormalizedData(self.spectrum, sound.sampleRate())['normalizeData']
+  }
+  sound.connect(analyser);
+  analyser.connect(processorNode);
   console.log("load sound success",e);
 }
 function onSoundLoadError(e){
@@ -303,7 +304,7 @@ function draw() {
     return;
   }
 
-  if (node == undefined || node.dataArray == undefined) {
+  if (dataArray == undefined) {
     console.log('In Draw data array dead');
     return;
   }
@@ -319,7 +320,7 @@ function draw() {
   background(currentBg[0], currentBg[1], currentBg[2]);
   strokeWeight(3);
 
-  drawWave(node.dataArray, 0);
+  drawWave(dataArray, 0);
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {
