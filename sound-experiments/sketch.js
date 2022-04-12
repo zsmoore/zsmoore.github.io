@@ -1,5 +1,3 @@
-var dataArray;
-
 let swaps = [
   9.5, 
   15.75,

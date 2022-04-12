@@ -1,3 +1,4 @@
+var dataArray;
 class ProcessorNode extends AudioWorkletProcessor {
   constructor(context) {
     super(context, 'processor-node');
@@ -12,6 +13,7 @@ class ProcessorNode extends AudioWorkletProcessor {
 
   process(inputs, outputs, parameters) {
     const vals = parameters.data;
+    console.log(parameters);
     if (vals.length !== 1) {
       dataArray = vals;
     }
