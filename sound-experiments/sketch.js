@@ -225,13 +225,14 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
 let sound;
 let analyser;
 let started = false;
+let node;
 function onSoundLoadSuccess(e){
   analyser = getAudioContext().createAnalyser();
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
   getAudioContext().audioWorklet.addModule('processor.js').then(() => {
-    let node = new AudioWorkletNode(getAudioContext(), 'processor-node');
+    node = new AudioWorkletNode(getAudioContext(), 'processor-node');
     sound.connect(analyser);
     analyser.connect(node);
   });
@@ -302,7 +303,7 @@ function draw() {
     return;
   }
 
-  if (window.dataArray == undefined) {
+  if (node == undefined || node.dataArray == undefined) {
     console.log('In Draw data array dead');
     return;
   }
@@ -318,7 +319,7 @@ function draw() {
   background(currentBg[0], currentBg[1], currentBg[2]);
   strokeWeight(3);
 
-  drawWave(window.dataArray, 0);
+  drawWave(node.dataArray, 0);
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {
