@@ -1,4 +1,4 @@
-class ProcessorNode extends AudioWorkletNode {
+class ProcessorNode extends AudioWorkletProcessor {
   constructor(context) {
     super(context, 'processor-node');
   }
