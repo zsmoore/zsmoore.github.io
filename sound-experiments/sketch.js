@@ -1,3 +1,27 @@
+class ProcessorNode extends AudioWorkletNode {
+  constructor(context) {
+    super(context, 'processor-node');
+  }
+
+  static get parameterDescriptors() {
+    return [{
+      name: 'data',
+      defaultValue: 0.7
+    }];
+  }
+
+  process(inputs, outputs, parameters) {
+    const vals = parameters.data;
+    if (vals.length !== 1) {
+      dataArray = vals;
+    }
+
+    return true;
+  }
+}
+
+registerProcessor('processor-node', ProcessorNode);
+
 let swaps = [
   9.5, 
   15.75,
@@ -231,29 +255,6 @@ function onSoundLoadSuccess(e){
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  class ProcessorNode extends AudioWorkletNode {
-    constructor(context) {
-      super(context, 'processor-node');
-    }
-
-    static get parameterDescriptors() {
-      return [{
-        name: 'data',
-        defaultValue: 0.7
-      }];
-    }
-
-    process(inputs, outputs, parameters) {
-      const vals = parameters.data;
-      if (vals.length !== 1) {
-        dataArray = vals;
-      }
-
-      return true;
-    }
-  }
-  
-  window.registerProcessor('processor-node', ProcessorNode);
   getAudioContext().audioWorklet.addModule('sketch.js').then(() => {
     let node = new ProcessorNode(getAudioContext());
     sound.connect(analyser);
