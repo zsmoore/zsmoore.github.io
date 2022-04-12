@@ -253,7 +253,7 @@ function onSoundLoadSuccess(e){
     }
   }
   
-  registerProcessor('processor-node', ProcessorNode);
+  AudioWorkletGlobalScope.registerProcessor('processor-node', ProcessorNode);
   getAudioContext().audioWorklet.addModule('sketch.js').then(() => {
     let node = new ProcessorNode(getAudioContext());
     sound.connect(analyser);
