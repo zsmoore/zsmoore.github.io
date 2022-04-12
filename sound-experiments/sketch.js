@@ -302,7 +302,7 @@ function draw() {
     return;
   }
 
-  if (dataArray == undefined) {
+  if (window.dataArray == undefined) {
     console.log('In Draw data array dead');
     return;
   }
@@ -318,7 +318,7 @@ function draw() {
   background(currentBg[0], currentBg[1], currentBg[2]);
   strokeWeight(3);
 
-  drawWave(dataArray, 0);
+  drawWave(window.dataArray, 0);
   // history.unshift(dataArray);
   // history = history.slice(0, 10);
   // for (let i = 0; i < 10; i++) {

@@ -14,7 +14,7 @@ class ProcessorNode extends AudioWorkletProcessor {
     const vals = parameters.data;
     console.log(parameters);
     if (vals.length !== 1) {
-      dataArray = vals;
+      window.dataArray = vals;
     }
 
     return true;
