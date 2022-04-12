@@ -1,3 +1,4 @@
+let dataArray;
 class ProcessorNode extends AudioWorkletProcessor {
   constructor(context) {
     super(context, 'processor-node');
@@ -248,7 +249,6 @@ function getFrequencyAndNormalizedData(samples, sampleRate) {
 
 let sound;
 let analyser;
-let dataArray;
 let started = false;
 function onSoundLoadSuccess(e){
   analyser = getAudioContext().createAnalyser();
