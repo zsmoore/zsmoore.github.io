@@ -1,4 +1,3 @@
-var dataArray;
 class ProcessorNode extends AudioWorkletProcessor {
   constructor(context) {
     super(context, 'processor-node');
