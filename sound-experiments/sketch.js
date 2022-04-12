@@ -1,4 +1,4 @@
-let dataArray;
+var dataArray;
 
 let swaps = [
   9.5, 
@@ -232,29 +232,7 @@ function onSoundLoadSuccess(e){
   analyser.fftSize = 4096;
   analyser.smoothingTimeConstant = .2;
 
-  getAudioContext().audioWorklet.addModule('sketch.js').then(() => {
-    class ProcessorNode extends AudioWorkletProcessor {
-      constructor(context) {
-        super(context, 'processor-node');
-      }
-    
-      static get parameterDescriptors() {
-        return [{
-          name: 'data',
-          defaultValue: 0.7
-        }];
-      }
-    
-      process(inputs, outputs, parameters) {
-        const vals = parameters.data;
-        if (vals.length !== 1) {
-          dataArray = vals;
-        }
-    
-        return true;
-      }
-    }
-    
+  getAudioContext().audioWorklet.addModule('processor.js').then(() => {
     registerProcessor('processor-node', ProcessorNode);
     let node = new ProcessorNode(getAudioContext());
     sound.connect(analyser);

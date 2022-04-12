@@ -1,0 +1,21 @@
+class ProcessorNode extends AudioWorkletProcessor {
+  constructor(context) {
+    super(context, 'processor-node');
+  }
+
+  static get parameterDescriptors() {
+    return [{
+      name: 'data',
+      defaultValue: 0.7
+    }];
+  }
+
+  process(inputs, outputs, parameters) {
+    const vals = parameters.data;
+    if (vals.length !== 1) {
+      dataArray = vals;
+    }
+
+    return true;
+  }
+}
